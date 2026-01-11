@@ -1,0 +1,35 @@
+.potentials-container {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.potentials-container .three-columns {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+}
+
+.potentials-container .four-columns {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+}
+
+.potentials-container .five-columns {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 10px;
+}
+
+.potentials-container .six-columns {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 8px;
+}
+
+.potentials-container .eight-columns {
+  display: grid;
+  grid-template-columns: repeat(8, 1fr);
+  gap: 8px;
+}

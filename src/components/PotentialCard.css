@@ -1,0 +1,16 @@
+.potential-card {
+  display: flex;
+  width: 100%;
+  user-select: none;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.potential-card[data-selected="false"] {
+  opacity: 0.5;
+}
+
+.potential-card .background {
+  max-width: 100%;
+  max-height: 100%;
+}
