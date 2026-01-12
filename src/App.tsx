@@ -2,19 +2,19 @@ import { useEffect, useState } from "react";
 import { PotentialsContainer } from "./components/PotentialsContainer";
 import { fetchCharacters, fetchPotentials } from "./utils/data-utils";
 import "./App.css";
+import { useDataStore } from "./lib/store";
 
 function App() {
   const [count, setCount] = useState(0);
 
-  const [characters, setCharacters] = useState(null);
-  const [potentials, setPotentials] = useState(null);
-
   useEffect(() => {
+    const dataStore = useDataStore.getState(); // Store snapshot
+
     fetchCharacters().then((characters) => {
-      setCharacters(characters);
+      dataStore.setCharacters(characters);
     });
     fetchPotentials().then((potentials) => {
-      setPotentials(potentials);
+      dataStore.setPotentials(potentials);
     });
   }, []);
 
