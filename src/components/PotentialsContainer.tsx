@@ -2,7 +2,11 @@ import { CharacterSelectDialog } from "./CharacterSelectDialog";
 import { PotentialCard } from "./PotentialCard";
 import "./PotentialsContainer.css";
 
-export const PotentialsContainer = () => {
+interface Props {
+  category: "main" | "sup1" | "sup2";
+}
+
+export const PotentialsContainer = ({ category }: Props) => {
   return (
     // <div className="potentials-container">
     //   <div className="four-columns">
@@ -74,7 +78,7 @@ export const PotentialsContainer = () => {
       </div>
 
       <div className="five-columns">
-        <CharacterSelectDialog />
+        <CharacterSelectDialog category={category} />
 
         <PotentialCard rarity={1} />
         <PotentialCard rarity={2} />

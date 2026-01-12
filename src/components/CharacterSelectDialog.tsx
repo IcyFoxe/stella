@@ -1,12 +1,31 @@
 import { Button, CloseButton, Dialog, Portal } from "@chakra-ui/react";
 import "./CharacterSelectDialog.css";
+import { CharacterList } from "./CharacterList";
+import { useSelectedCharactersStore } from "@/lib/store";
+import { useState } from "react";
 
-export const CharacterSelectDialog = () => {
+interface Props {
+  category: "main" | "sup1" | "sup2";
+}
+
+export const CharacterSelectDialog = ({ category }: Props) => {
+  const [open, setOpen] = useState(false);
+  const selectedCharacterStore = useSelectedCharactersStore();
+
   return (
-    <Dialog.Root>
+    <Dialog.Root size="xl" placement="center" open={open} onOpenChange={({ open }) => setOpen(open)}>
       <Dialog.Trigger asChild>
         <Button className="character-select-button" variant="ghost" size="sm">
-          Select Character
+          {selectedCharacterStore[category] ? (
+            <img
+              alt={selectedCharacterStore[category].name + " portrait"}
+              className="block w-full h-full object-cover"
+              fetchPriority="high"
+              src={`https://res.cloudinary.com/dafqr01it/image/upload/v1762945238/ss/avatar/head_${selectedCharacterStore[category].id}01_XL.png`}
+            />
+          ) : (
+            "Select Trekker"
+          )}
         </Button>
       </Dialog.Trigger>
 
@@ -15,10 +34,10 @@ export const CharacterSelectDialog = () => {
         <Dialog.Positioner>
           <Dialog.Content>
             <Dialog.Header>
-              <Dialog.Title>Dialog Title</Dialog.Title>
+              <Dialog.Title>Trekkers</Dialog.Title>
             </Dialog.Header>
             <Dialog.Body>
-              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+              <CharacterList category={category} onSelect={() => setOpen(false)} />
             </Dialog.Body>
             <Dialog.Footer>
               <Dialog.ActionTrigger asChild>

@@ -28,9 +28,9 @@ function App() {
       </div>
 
       <div className="main-wrapper">
-        <PotentialsContainer />
-        <PotentialsContainer />
-        <PotentialsContainer />
+        <PotentialsContainer category="main" />
+        <PotentialsContainer category="sup1" />
+        <PotentialsContainer category="sup2" />
       </div>
     </>
   );
