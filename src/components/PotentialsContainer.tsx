@@ -1,3 +1,4 @@
+import { CharacterSelectDialog } from "./CharacterSelectDialog";
 import { PotentialCard } from "./PotentialCard";
 import "./PotentialsContainer.css";
 
@@ -73,16 +74,12 @@ export const PotentialsContainer = () => {
       </div>
 
       <div className="five-columns">
-        <div />
-        <div />
+        <CharacterSelectDialog />
+
         <PotentialCard rarity={1} />
         <PotentialCard rarity={2} />
         <PotentialCard rarity={2} />
-      </div>
 
-      <div className="five-columns">
-        <div />
-        <div />
         <PotentialCard rarity={2} />
         <PotentialCard rarity={2} />
         <PotentialCard rarity={2} />
