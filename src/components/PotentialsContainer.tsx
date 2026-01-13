@@ -1,3 +1,4 @@
+import { useSelectedCharactersStore } from "@/lib/store";
 import { CharacterSelectDialog } from "./CharacterSelectDialog";
 import { PotentialCard } from "./PotentialCard";
 import "./PotentialsContainer.css";
@@ -7,6 +8,10 @@ interface Props {
 }
 
 export const PotentialsContainer = ({ category }: Props) => {
+  const selectedCharacterStore = useSelectedCharactersStore();
+
+  const potentials = selectedCharacterStore[category]?.potentials;
+
   return (
     // <div className="potentials-container">
     //   <div className="four-columns">
@@ -62,31 +67,33 @@ export const PotentialsContainer = ({ category }: Props) => {
 
     <div className="potentials-container">
       <div className="five-columns">
-        <PotentialCard rarity={0} />
-        <PotentialCard rarity={0} />
-        <PotentialCard rarity={1} />
-        <PotentialCard rarity={2} />
-        <PotentialCard rarity={2} />
-      </div>
+        {potentials ? (
+          potentials.map((p) => <PotentialCard rarity={p.rarity} imgId={p.imgId} subIcon={p.subIcon} name={p.name} key={p.id} />)
+        ) : (
+          <>
+            <PotentialCard rarity={0} imgId="" name="" />
+            <PotentialCard rarity={0} imgId="" name="" />
+            <PotentialCard rarity={1} imgId="" name="" />
+            <PotentialCard rarity={2} imgId="" name="" />
+            <PotentialCard rarity={2} imgId="" name="" />
 
-      <div className="five-columns">
-        <PotentialCard rarity={0} />
-        <PotentialCard rarity={0} />
-        <PotentialCard rarity={1} />
-        <PotentialCard rarity={2} />
-        <PotentialCard rarity={2} />
-      </div>
+            <PotentialCard rarity={0} imgId="" name="" />
+            <PotentialCard rarity={0} imgId="" name="" />
+            <PotentialCard rarity={1} imgId="" name="" />
+            <PotentialCard rarity={2} imgId="" name="" />
+            <PotentialCard rarity={2} imgId="" name="" />
 
-      <div className="five-columns">
+            <PotentialCard rarity={1} imgId="" name="" />
+            <PotentialCard rarity={2} imgId="" name="" />
+            <PotentialCard rarity={2} imgId="" name="" />
+
+            <PotentialCard rarity={2} imgId="" name="" />
+            <PotentialCard rarity={2} imgId="" name="" />
+            <PotentialCard rarity={2} imgId="" name="" />
+          </>
+        )}
+
         <CharacterSelectDialog category={category} />
-
-        <PotentialCard rarity={1} />
-        <PotentialCard rarity={2} />
-        <PotentialCard rarity={2} />
-
-        <PotentialCard rarity={2} />
-        <PotentialCard rarity={2} />
-        <PotentialCard rarity={2} />
       </div>
     </div>
 

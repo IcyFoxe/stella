@@ -4,6 +4,7 @@
   user-select: none;
   cursor: pointer;
   transition: 0.2s;
+  position: relative;
 }
 
 .potential-card[data-selected="false"] {
@@ -13,4 +14,20 @@
 .potential-card .background {
   max-width: 100%;
   max-height: 100%;
+}
+
+.potential-card .icon {
+  position: absolute;
+  inset: 0;
+}
+
+.potential-card .name {
+  position: absolute;
+  bottom: 4px;
+  left: 4px;
+  right: 4px;
+  color: #111;
+  font-weight: 500;
+  font-size: 0.9rem;
+  line-height: 1;
 }

@@ -13,7 +13,6 @@ export const CharacterList = ({ category, onSelect }: Props) => {
 
   const characterList = dataStore.characters ? Object.values(dataStore.characters).map((value) => value) : [];
   characterList.sort((a, b) => (a.name > b.name ? 1 : -1));
-  console.log("charList:", characterList);
 
   const selectCharacter = (character: SSCharacter) => {
     selectedCharacterStore.setCharacter(category, character);
