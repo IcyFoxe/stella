@@ -15,18 +15,19 @@ export const CharacterSelectDialog = ({ category }: Props) => {
   return (
     <Dialog.Root size="xl" placement="center" open={open} onOpenChange={({ open }) => setOpen(open)}>
       <Dialog.Trigger asChild>
-        <Button className="character-select-button" variant="ghost" size="sm">
+        <button className="character-select-button">
           {selectedCharacterStore[category] ? (
             <img
+              className="character-image"
               alt={selectedCharacterStore[category].name + " portrait"}
-              className="block w-full h-full object-cover"
               fetchPriority="high"
+              draggable="false"
               src={`https://res.cloudinary.com/dafqr01it/image/upload/v1762945238/ss/avatar/head_${selectedCharacterStore[category].id}01_XL.png`}
             />
           ) : (
             "Select Trekker"
           )}
-        </Button>
+        </button>
       </Dialog.Trigger>
 
       <Portal>
