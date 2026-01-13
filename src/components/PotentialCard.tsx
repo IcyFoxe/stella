@@ -1,6 +1,7 @@
 import "./PotentialCard.css";
 import type { SSPotential } from "@/lib/types";
 import { useSelectedPotentialsStore } from "@/lib/store";
+import { Tooltip } from "./ui/tooltip";
 
 // TODO: Maybe just pass the whole potential
 interface Props {
@@ -16,10 +17,12 @@ export const PotentialCard = ({ category, potential }: Props) => {
   const selectedPotentialsStore = useSelectedPotentialsStore();
 
   return (
-    <div className="potential-card" data-selected={selectedPotentialsStore[category].includes(potential.id)} onClick={() => selectedPotentialsStore.togglePotential(category, potential.id)}>
-      <img className="background" draggable="false" src={bgSrc} alt="Vite logo" />
-      {potential.imgId && <img className="icon" draggable="false" src={iconSrc} alt={name + " icon"} />}
-      <span className="name">{potential.name}</span>
-    </div>
+    <Tooltip content={potential.briefDesc} openDelay={1000} closeDelay={0}>
+      <div className="potential-card" data-selected={selectedPotentialsStore[category].includes(potential.id)} onClick={() => selectedPotentialsStore.togglePotential(category, potential.id)}>
+        <img className="background" draggable="false" src={bgSrc} alt="Vite logo" />
+        {potential.imgId && <img className="icon" draggable="false" src={iconSrc} alt={name + " icon"} />}
+        <span className="name">{potential.name}</span>
+      </div>
+    </Tooltip>
   );
 };
