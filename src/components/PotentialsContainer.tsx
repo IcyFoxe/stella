@@ -2,6 +2,12 @@ import { useSelectedCharactersStore } from "@/lib/store";
 import { CharacterSelectDialog } from "./CharacterSelectDialog";
 import { PotentialCard } from "./PotentialCard";
 import "./PotentialsContainer.css";
+import type { SSPotential } from "@/lib/types";
+
+const INDEX_TO_TYPE: (0 | 1 | 2)[] = [0, 0, 1, 2, 2, 0, 0, 1, 2, 2, 1, 2, 2, 1, 2, 2];
+const DEFAULT_POTENTIALS: SSPotential[] = Array.from({ length: 16 }, (_, i) => {
+  return { id: i, imgId: "", name: "", briefDesc: "", type: "main", rarity: INDEX_TO_TYPE[i] };
+});
 
 interface Props {
   category: "main" | "sup1" | "sup2";
@@ -9,7 +15,6 @@ interface Props {
 
 export const PotentialsContainer = ({ category }: Props) => {
   const selectedCharacterStore = useSelectedCharactersStore();
-
   const potentials = selectedCharacterStore[category]?.potentials;
 
   return (
@@ -67,31 +72,9 @@ export const PotentialsContainer = ({ category }: Props) => {
 
     <div className="potentials-container">
       <div className="five-columns">
-        {potentials ? (
-          potentials.map((p) => <PotentialCard rarity={p.rarity} imgId={p.imgId} subIcon={p.subIcon} name={p.name} key={p.id} />)
-        ) : (
-          <>
-            <PotentialCard rarity={0} imgId="" name="" />
-            <PotentialCard rarity={0} imgId="" name="" />
-            <PotentialCard rarity={1} imgId="" name="" />
-            <PotentialCard rarity={2} imgId="" name="" />
-            <PotentialCard rarity={2} imgId="" name="" />
-
-            <PotentialCard rarity={0} imgId="" name="" />
-            <PotentialCard rarity={0} imgId="" name="" />
-            <PotentialCard rarity={1} imgId="" name="" />
-            <PotentialCard rarity={2} imgId="" name="" />
-            <PotentialCard rarity={2} imgId="" name="" />
-
-            <PotentialCard rarity={1} imgId="" name="" />
-            <PotentialCard rarity={2} imgId="" name="" />
-            <PotentialCard rarity={2} imgId="" name="" />
-
-            <PotentialCard rarity={2} imgId="" name="" />
-            <PotentialCard rarity={2} imgId="" name="" />
-            <PotentialCard rarity={2} imgId="" name="" />
-          </>
-        )}
+        {potentials
+          ? potentials.map((p) => <PotentialCard category={category} potential={p} key={p.id} />)
+          : DEFAULT_POTENTIALS.map((p) => <PotentialCard category={category} potential={p} key={p.id} />)}
 
         <CharacterSelectDialog category={category} />
       </div>

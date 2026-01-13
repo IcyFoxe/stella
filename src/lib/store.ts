@@ -56,6 +56,30 @@ export const useSelectedCharactersStore = create<SelectedCharactersStore>((set) 
       const orderedPotentials = [...rarity0.slice(0, 2), rarity1[0], ...rarity2.slice(0, 2), ...rarity0.slice(2, 4), rarity1[1], ...rarity2.slice(2, 4), rarity1[2], ...rarity2.slice(4)];
 
       object[key] = { ...data, potentials: orderedPotentials };
+
+      console.log(object[key]);
       return object;
     }),
+}));
+
+interface SelectedPotentialsStore {
+  characters: { main: number | null; sup1: number | null; sup2: number | null };
+  main: number[];
+  sup1: number[];
+  sup2: number[];
+  togglePotential: (key: "main" | "sup1" | "sup2", id: number) => void;
+}
+
+export const useSelectedPotentialsStore = create<SelectedPotentialsStore>((set) => ({
+  characters: { main: null, sup1: null, sup2: null },
+  main: [],
+  sup1: [],
+  sup2: [],
+  togglePotential: (key, id) => {
+    set((state) => {
+      const exists = state[key].includes(id);
+      if (exists) return { [key]: state[key].filter((i) => i !== id) }; // Remove
+      return { [key]: [...state[key], id] }; // Add
+    });
+  },
 }));
