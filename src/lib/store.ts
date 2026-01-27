@@ -110,3 +110,23 @@ export const useStoredBuildsStore = create<StoredBuildsStore>((set) => ({
   builds: [],
   setBuilds: (data) => set({ builds: data }),
 }));
+
+interface ObtainedPotentialsStore {
+  active: boolean;
+  potentials: number[];
+  setActive: (data: boolean) => void;
+  togglePotential: (id: number) => void;
+}
+
+export const useObtainedPotentialsStore = create<ObtainedPotentialsStore>((set) => ({
+  active: false,
+  potentials: [],
+  setActive: (data) => set({ active: data }),
+  togglePotential: (id) => {
+    set((state) => {
+      const exists = state.potentials.includes(id);
+      if (exists) return { potentials: state.potentials.filter((i) => i !== id) }; // Remove
+      return { potentials: [...state.potentials, id] }; // Add
+    });
+  },
+}));

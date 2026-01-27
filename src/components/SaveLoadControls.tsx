@@ -1,5 +1,5 @@
-import { useDataStore, useSelectedCharactersStore, useSelectedPotentialsStore, useStoredBuildsStore } from "@/lib/store";
-import { Button, createListCollection, Input } from "@chakra-ui/react";
+import { useDataStore, useObtainedPotentialsStore, useSelectedCharactersStore, useSelectedPotentialsStore, useStoredBuildsStore } from "@/lib/store";
+import { Button, createListCollection, Input, Switch } from "@chakra-ui/react";
 import { SelectBase } from "./base/SelectBase";
 import { storage } from "@/utils/local-storage-utils";
 import { useState } from "react";
@@ -53,6 +53,7 @@ const loadBuild = (name: string) => {
 
 export const SaveLoadControls = () => {
   const builds = useStoredBuildsStore((s) => s.builds);
+  const obtainedPotentialsStore = useObtainedPotentialsStore();
 
   const [name, setName] = useState("");
 
@@ -67,6 +68,12 @@ export const SaveLoadControls = () => {
       <Button disabled={!name.trim().length} onClick={() => saveBuild(name)}>
         Save
       </Button>
+
+      <Switch.Root checked={obtainedPotentialsStore.active} onCheckedChange={() => obtainedPotentialsStore.setActive(!obtainedPotentialsStore.active)}>
+        <Switch.HiddenInput />
+        <Switch.Control />
+        <Switch.Label>Mark&nbsp;Obtained</Switch.Label>
+      </Switch.Root>
     </div>
   );
 };
