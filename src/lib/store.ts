@@ -57,7 +57,6 @@ export const useSelectedCharactersStore = create<SelectedCharactersStore>((set) 
 
       object[key] = { ...data, potentials: orderedPotentials };
 
-      console.log(object[key]);
       return object;
     }),
 }));
