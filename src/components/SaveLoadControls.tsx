@@ -6,17 +6,22 @@ import { useState } from "react";
 
 const saveBuild = (name: string) => {
   const selectedStore = useSelectedPotentialsStore.getState();
+
+  const data = {
+    characters: selectedStore.characters,
+    main: selectedStore.main,
+    sup1: selectedStore.sup1,
+    sup2: selectedStore.sup2,
+  };
+
   const builds = storage.get("builds");
 
-  builds.push({
-    name,
-    data: {
-      characters: selectedStore.characters,
-      main: selectedStore.main,
-      sup1: selectedStore.sup1,
-      sup2: selectedStore.sup2,
-    },
-  });
+  const buildIndex = builds.findIndex((b) => b.name.trim().toLowerCase() === name.trim().toLowerCase());
+  if (buildIndex === -1) {
+    builds.push({ name, data });
+  } else {
+    builds[buildIndex] = { name, data };
+  }
 
   storage.set("builds", builds);
 };
