@@ -62,11 +62,22 @@ export const useSelectedCharactersStore = create<SelectedCharactersStore>((set) 
     }),
 }));
 
-interface SelectedPotentialsStore {
-  characters: { main: number | null; sup1: number | null; sup2: number | null };
+export interface CharacterIds {
+  main: number | null;
+  sup1: number | null;
+  sup2: number | null;
+}
+
+export interface SelectedPotentialsData {
+  characters: CharacterIds;
   main: number[];
   sup1: number[];
   sup2: number[];
+}
+
+interface SelectedPotentialsStore extends SelectedPotentialsData {
+  setCharacters: (data: CharacterIds) => void;
+  setCharacter: (key: "main" | "sup1" | "sup2", data: number[]) => void;
   togglePotential: (key: "main" | "sup1" | "sup2", id: number) => void;
 }
 
@@ -75,6 +86,8 @@ export const useSelectedPotentialsStore = create<SelectedPotentialsStore>((set) 
   main: [],
   sup1: [],
   sup2: [],
+  setCharacters: (data) => set({ characters: data }),
+  setCharacter: (key, data) => set({ [key]: data }),
   togglePotential: (key, id) => {
     set((state) => {
       const exists = state[key].includes(id);
@@ -82,4 +95,19 @@ export const useSelectedPotentialsStore = create<SelectedPotentialsStore>((set) 
       return { [key]: [...state[key], id] }; // Add
     });
   },
+}));
+
+interface Build {
+  name: string;
+  data: SelectedPotentialsData;
+}
+
+interface StoredBuildsStore {
+  builds: Build[];
+  setBuilds: (data: Build[]) => void;
+}
+
+export const useStoredBuildsStore = create<StoredBuildsStore>((set) => ({
+  builds: [],
+  setBuilds: (data) => set({ builds: data }),
 }));

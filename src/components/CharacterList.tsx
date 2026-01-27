@@ -1,4 +1,4 @@
-import { useDataStore, useSelectedCharactersStore } from "@/lib/store";
+import { useDataStore, useSelectedCharactersStore, useSelectedPotentialsStore } from "@/lib/store";
 import "./CharacterList.css";
 import type { SSCharacter } from "@/lib/types";
 
@@ -10,12 +10,19 @@ interface Props {
 export const CharacterList = ({ category, onSelect }: Props) => {
   const dataStore = useDataStore();
   const selectedCharacterStore = useSelectedCharactersStore();
+  const selectedPotentialsStore = useSelectedPotentialsStore();
 
   const characterList = dataStore.characters ? Object.values(dataStore.characters).map((value) => value) : [];
   characterList.sort((a, b) => (a.name > b.name ? 1 : -1));
 
   const selectCharacter = (character: SSCharacter) => {
     selectedCharacterStore.setCharacter(category, character);
+
+    // Update characters IDs in the selected potentials store
+    const charactersNew = { ...selectedPotentialsStore.characters };
+    charactersNew[category] = character.id;
+    selectedPotentialsStore.setCharacters(charactersNew);
+
     onSelect();
   };
 
