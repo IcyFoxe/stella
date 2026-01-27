@@ -25,14 +25,15 @@ const loadBuild = (name: string) => {
   const { characters } = useDataStore.getState();
   const { builds } = useStoredBuildsStore.getState();
   const { setCharacter: setCharacterData } = useSelectedCharactersStore.getState();
-  const { setCharacter } = useSelectedPotentialsStore.getState();
+  const { setCharacters, setPotentials } = useSelectedPotentialsStore.getState();
 
   const build = builds.find((b) => b.name === name);
   if (!build) throw new Error("Could not load build data");
 
-  setCharacter("main", build.data.main);
-  setCharacter("sup1", build.data.sup1);
-  setCharacter("sup2", build.data.sup2);
+  setCharacters(build.data.characters);
+  setPotentials("main", build.data.main);
+  setPotentials("sup1", build.data.sup1);
+  setPotentials("sup2", build.data.sup2);
 
   if (characters) {
     if (build.data.characters.main) {

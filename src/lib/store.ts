@@ -76,7 +76,7 @@ export interface SelectedPotentialsData {
 
 interface SelectedPotentialsStore extends SelectedPotentialsData {
   setCharacters: (data: CharacterIds) => void;
-  setCharacter: (key: "main" | "sup1" | "sup2", data: number[]) => void;
+  setPotentials: (key: "main" | "sup1" | "sup2", data: number[]) => void;
   togglePotential: (key: "main" | "sup1" | "sup2", id: number) => void;
 }
 
@@ -86,7 +86,7 @@ export const useSelectedPotentialsStore = create<SelectedPotentialsStore>((set) 
   sup1: [],
   sup2: [],
   setCharacters: (data) => set({ characters: data }),
-  setCharacter: (key, data) => set({ [key]: data }),
+  setPotentials: (key, data) => set({ [key]: data }),
   togglePotential: (key, id) => {
     set((state) => {
       const exists = state[key].includes(id);

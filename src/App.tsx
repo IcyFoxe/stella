@@ -35,6 +35,7 @@ function App() {
         <PotentialsContainer category="sup2" />
       </div>
 
+      <pre>{JSON.stringify(selectedStore.characters)}</pre>
       <pre>{JSON.stringify(selectedStore.main)}</pre>
       <pre>{JSON.stringify(selectedStore.sup1)}</pre>
       <pre>{JSON.stringify(selectedStore.sup2)}</pre>
