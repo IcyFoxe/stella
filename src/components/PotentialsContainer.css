@@ -19,7 +19,7 @@
 .potentials-container .five-columns {
   display: grid;
   grid-template-columns: repeat(5, 1fr);
-  gap: 10px;
+  gap: 0.4vw;
 }
 
 .potentials-container .six-columns {
