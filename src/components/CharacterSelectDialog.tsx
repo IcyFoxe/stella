@@ -1,4 +1,4 @@
-import { Button, CloseButton, Dialog, Portal } from "@chakra-ui/react";
+import { CloseButton, Dialog, Portal } from "@chakra-ui/react";
 import "./CharacterSelectDialog.css";
 import { CharacterList } from "./CharacterList";
 import { useSelectedCharactersStore } from "@/lib/store";
@@ -17,13 +17,16 @@ export const CharacterSelectDialog = ({ category }: Props) => {
       <Dialog.Trigger asChild>
         <button className="character-select-button">
           {selectedCharacterStore[category] ? (
-            <img
-              className="character-image"
-              alt={selectedCharacterStore[category].name + " portrait"}
-              fetchPriority="high"
-              draggable="false"
-              src={`https://res.cloudinary.com/dafqr01it/image/upload/v1762945238/ss/avatar/head_${selectedCharacterStore[category].id}01_XL.png`}
-            />
+            <>
+              <img
+                className="character-image"
+                alt={selectedCharacterStore[category].name + " portrait"}
+                fetchPriority="high"
+                draggable="false"
+                src={`https://res.cloudinary.com/dafqr01it/image/upload/v1762945238/ss/avatar/head_${selectedCharacterStore[category].id}01_XL.png`}
+              />
+              <span className="character-name">{selectedCharacterStore[category].name}</span>
+            </>
           ) : (
             "Select Trekker"
           )}
@@ -40,12 +43,12 @@ export const CharacterSelectDialog = ({ category }: Props) => {
             <Dialog.Body>
               <CharacterList category={category} onSelect={() => setOpen(false)} />
             </Dialog.Body>
-            <Dialog.Footer>
+            {/* <Dialog.Footer>
               <Dialog.ActionTrigger asChild>
                 <Button variant="outline">Cancel</Button>
               </Dialog.ActionTrigger>
               <Button>Save</Button>
-            </Dialog.Footer>
+            </Dialog.Footer> */}
             <Dialog.CloseTrigger asChild>
               <CloseButton size="sm" />
             </Dialog.CloseTrigger>

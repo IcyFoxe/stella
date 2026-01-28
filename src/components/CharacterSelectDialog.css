@@ -13,6 +13,7 @@
   overflow: hidden;
   transition: 0.2s;
   cursor: pointer;
+  border-radius: 4px;
 }
 .potentials-container .character-select-button:hover {
   filter: brightness(1.1);
@@ -22,4 +23,17 @@
 .potentials-container .character-image {
   position: absolute;
   inset: 0;
+}
+
+.potentials-container .character-name {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 1;
+  color: #264278;
+  font-size: 1.5rem;
+  font-weight: 700;
+  background-color: #ffffffb0;
+  text-align: center;
 }

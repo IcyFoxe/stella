@@ -27,6 +27,7 @@ function App() {
 
   return (
     <>
+      <h1 className="main-title">Stella Sora Record Builder</h1>
       <SaveLoadControls />
 
       <div className="main-wrapper">
@@ -35,12 +36,12 @@ function App() {
         <PotentialsContainer category="sup2" />
       </div>
 
-      <div style={{ marginTop: "20px" }}>
+      {/* <div style={{ marginTop: "20px" }}>
         <pre>{JSON.stringify(selectedStore.characters)}</pre>
         <pre>{JSON.stringify(selectedStore.main)}</pre>
         <pre>{JSON.stringify(selectedStore.sup1)}</pre>
         <pre>{JSON.stringify(selectedStore.sup2)}</pre>
-      </div>
+      </div> */}
     </>
   );
 }

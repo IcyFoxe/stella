@@ -4,10 +4,16 @@ import { PotentialCard } from "./PotentialCard";
 import "./PotentialsContainer.css";
 import type { SSPotential } from "@/lib/types";
 
-const INDEX_TO_TYPE: (0 | 1 | 2)[] = [0, 0, 1, 2, 2, 0, 0, 1, 2, 2, 1, 2, 2, 1, 2, 2];
+const INDEX_TO_RARITY: (0 | 1 | 2)[] = [0, 0, 1, 2, 2, 0, 0, 1, 2, 2, 1, 2, 2, 1, 2, 2];
 const DEFAULT_POTENTIALS: SSPotential[] = Array.from({ length: 16 }, (_, i) => {
-  return { id: i, imgId: "", name: "", briefDesc: "", type: "main", rarity: INDEX_TO_TYPE[i] };
+  return { id: i, imgId: "", name: "", briefDesc: "", type: "main", rarity: INDEX_TO_RARITY[i] };
 });
+
+const CATEGORY_TO_LABEL = {
+  main: "Main",
+  sup1: "Support 1",
+  sup2: "Support 2",
+};
 
 interface Props {
   category: "main" | "sup1" | "sup2";
@@ -71,6 +77,7 @@ export const PotentialsContainer = ({ category }: Props) => {
     // </div>
 
     <div className="potentials-container">
+      <h2 className="section-label">{CATEGORY_TO_LABEL[category]}</h2>
       <div className="five-columns">
         {potentials
           ? potentials.map((p) => <PotentialCard category={category} potential={p} key={p.id} />)
