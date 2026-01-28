@@ -6,9 +6,10 @@ import { Tooltip } from "./ui/tooltip";
 interface Props {
   category: "main" | "sup1" | "sup2";
   potential: SSPotential;
+  disabled?: boolean;
 }
 
-export const PotentialCard = ({ category, potential }: Props) => {
+export const PotentialCard = ({ category, potential, disabled }: Props) => {
   const bgSrc = `potentials/cards/vestige_${potential.rarity}.png`;
   const iconSrc = `https://res.cloudinary.com/dafqr01it/image/upload/v1763084273/ss/potential/${potential.imgId}_A.png`;
   // const subIconUrl = `https://res.cloudinary.com/dafqr01it/image/upload/v1763084273/ss/potential/Potential_${potential.subIcon}_A.png`
@@ -18,6 +19,8 @@ export const PotentialCard = ({ category, potential }: Props) => {
   const obtainedPotentials = useObtainedPotentialsStore((s) => s.potentials);
 
   const cardClick = (category: "main" | "sup1" | "sup2", id: number) => {
+    if (disabled) return;
+
     if (obtainedPotentialsStore.active) {
       obtainedPotentialsStore.togglePotential(id);
       return;
@@ -27,11 +30,12 @@ export const PotentialCard = ({ category, potential }: Props) => {
   };
 
   return (
-    <Tooltip content={potential.briefDesc} openDelay={1000} closeDelay={0}>
+    <Tooltip content={potential.briefDesc} openDelay={1000} closeDelay={0} disabled={!potential.briefDesc}>
       <div
         className="potential-card"
         data-selected={selectedPotentialsStore[category].includes(potential.id)}
         data-obtained={obtainedPotentials.includes(potential.id)}
+        data-disabled={disabled}
         onClick={() => cardClick(category, potential.id)}
       >
         <img className="background" draggable="false" src={bgSrc} alt="" />

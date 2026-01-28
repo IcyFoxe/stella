@@ -1,4 +1,4 @@
-import { useSelectedCharactersStore } from "@/lib/store";
+import { useSelectedCharactersStore, useSelectedPotentialsStore } from "@/lib/store";
 import { CharacterSelectDialog } from "./CharacterSelectDialog";
 import { PotentialCard } from "./PotentialCard";
 import "./PotentialsContainer.css";
@@ -20,95 +20,33 @@ interface Props {
 }
 
 export const PotentialsContainer = ({ category }: Props) => {
-  const selectedCharacterStore = useSelectedCharactersStore();
-  const potentials = selectedCharacterStore[category]?.potentials;
+  const potentials = useSelectedCharactersStore((s) => s[category]?.potentials);
+  const selectedPotentials = useSelectedPotentialsStore((s) => s[category]);
+
+  // Disable pink potentials when max limit reached
+  const disabledPotentials: number[] = [];
+
+  if (potentials) {
+    const pinkPotentials = potentials.filter((p) => p.rarity === 0).map((p) => p.id);
+    const pinkPotentialsSelected = selectedPotentials.filter((p) => pinkPotentials.includes(p));
+
+    if (pinkPotentialsSelected.length >= 2) {
+      pinkPotentials.forEach((p) => {
+        if (!pinkPotentialsSelected.includes(p)) disabledPotentials.push(p);
+      });
+    }
+  }
 
   return (
-    // <div className="potentials-container">
-    //   <div className="four-columns">
-    //     <PotentialCard rarity={0} />
-    //     <PotentialCard rarity={1} />
-    //     <PotentialCard rarity={2} />
-    //     <PotentialCard rarity={2} />
-    //   </div>
-
-    //   <div className="four-columns">
-    //     <PotentialCard rarity={0} />
-    //     <PotentialCard rarity={1} />
-    //     <PotentialCard rarity={2} />
-    //     <PotentialCard rarity={2} />
-    //   </div>
-    //   <div className="four-columns">
-    //     <PotentialCard rarity={0} />
-    //     <PotentialCard rarity={1} />
-    //     <PotentialCard rarity={2} />
-    //     <PotentialCard rarity={2} />
-    //     <PotentialCard rarity={0} />
-    //     <PotentialCard rarity={2} />
-    //     <PotentialCard rarity={2} />
-    //     <PotentialCard rarity={2} />
-    //   </div>
-    // </div>
-
-    // <div className="potentials-container">
-    //   <div className="five-columns">
-    //     <PotentialCard rarity={0} />
-    //     <PotentialCard rarity={0} />
-    //     <PotentialCard rarity={1} />
-    //     <PotentialCard rarity={2} />
-    //     <PotentialCard rarity={2} />
-    //   </div>
-
-    //   <div className="five-columns">
-    //     <PotentialCard rarity={0} />
-    //     <PotentialCard rarity={0} />
-    //     <PotentialCard rarity={1} />
-    //     <PotentialCard rarity={2} />
-    //     <PotentialCard rarity={2} />
-    //   </div>
-    //   <div className="six-columns">
-    //     <PotentialCard rarity={1} />
-    //     <PotentialCard rarity={2} />
-    //     <PotentialCard rarity={2} />
-    //     <PotentialCard rarity={2} />
-    //     <PotentialCard rarity={2} />
-    //     <PotentialCard rarity={2} />
-    //   </div>
-    // </div>
-
     <div className="potentials-container">
       <h2 className="section-label">{CATEGORY_TO_LABEL[category]}</h2>
       <div className="five-columns">
         {potentials
-          ? potentials.map((p) => <PotentialCard category={category} potential={p} key={p.id} />)
-          : DEFAULT_POTENTIALS.map((p) => <PotentialCard category={category} potential={p} key={p.id} />)}
+          ? potentials.map((p) => <PotentialCard category={category} potential={p} disabled={disabledPotentials.includes(p.id)} key={p.id} />)
+          : DEFAULT_POTENTIALS.map((p) => <PotentialCard category={category} potential={p} disabled key={p.id} />)}
 
         <CharacterSelectDialog category={category} />
       </div>
     </div>
-
-    // <div className="potentials-container">
-    //   <div className="eight-columns">
-    //     <PotentialCard rarity={0} />
-    //     <PotentialCard rarity={0} />
-    //     <PotentialCard rarity={1} />
-    //     <PotentialCard rarity={2} />
-    //     <PotentialCard rarity={2} />
-    //     <PotentialCard rarity={1} />
-    //     <PotentialCard rarity={2} />
-    //     <PotentialCard rarity={2} />
-    //   </div>
-
-    //   <div className="eight-columns">
-    //     <PotentialCard rarity={0} />
-    //     <PotentialCard rarity={0} />
-    //     <PotentialCard rarity={1} />
-    //     <PotentialCard rarity={2} />
-    //     <PotentialCard rarity={2} />
-    //     <PotentialCard rarity={2} />
-    //     <PotentialCard rarity={2} />
-    //     <PotentialCard rarity={2} />
-    //   </div>
-    // </div>
   );
 };

@@ -10,13 +10,17 @@
 }
 
 .potential-card[data-selected="false"] {
-  opacity: 0.5;
+  opacity: 0.4;
 }
 
 .potential-card[data-obtained="true"] {
   box-shadow:
     0 0 6px 4px #ffff00dd,
     inset 0 0 0 2px #ff0;
+}
+
+.potential-card[data-disabled="true"] {
+  cursor: not-allowed;
 }
 
 .potential-card .background {
