@@ -2,12 +2,12 @@ import { useEffect } from "react";
 import { PotentialsContainer } from "./components/PotentialsContainer";
 import { fetchCharacters, fetchPotentials } from "./utils/data-utils";
 import "./App.css";
-import { useDataStore, useSelectedPotentialsStore, useStoredBuildsStore } from "./lib/store";
+import { useDataStore, useStoredBuildsStore } from "./lib/store";
 import { storage } from "./utils/local-storage-utils";
 import { SaveLoadControls } from "./components/SaveLoadControls";
 
 function App() {
-  const selectedStore = useSelectedPotentialsStore();
+  // const selectedStore = useSelectedPotentialsStore();
 
   useEffect(() => {
     const dataStore = useDataStore.getState(); // Store snapshot
