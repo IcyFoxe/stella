@@ -9,7 +9,7 @@ interface Props {
 }
 
 export const PotentialCard = ({ category, potential }: Props) => {
-  const bgSrc = `/potentials/cards/vestige_${potential.rarity}.png`;
+  const bgSrc = `potentials/cards/vestige_${potential.rarity}.png`;
   const iconSrc = `https://res.cloudinary.com/dafqr01it/image/upload/v1763084273/ss/potential/${potential.imgId}_A.png`;
   // const subIconUrl = `https://res.cloudinary.com/dafqr01it/image/upload/v1763084273/ss/potential/Potential_${potential.subIcon}_A.png`
 
@@ -34,7 +34,7 @@ export const PotentialCard = ({ category, potential }: Props) => {
         data-obtained={obtainedPotentials.includes(potential.id)}
         onClick={() => cardClick(category, potential.id)}
       >
-        <img className="background" draggable="false" src={bgSrc} alt="Vite logo" />
+        <img className="background" draggable="false" src={bgSrc} alt="" />
         {potential.imgId && <img className="icon" draggable="false" src={iconSrc} alt={name + " icon"} />}
         <span className="name">{potential.name}</span>
       </div>
