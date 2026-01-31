@@ -1,0 +1,20 @@
+{
+  "cl": {
+    "scope": "javascript,typescript,javascriptreact,typescriptreact",
+    "prefix": "cl",
+    "body": ["console.log($0);"],
+    "description": "Console log",
+  },
+  "cld": {
+    "scope": "javascript,typescript,javascriptreact,typescriptreact",
+    "prefix": "cld",
+    "body": ["console.log(\"$0:\", $0);"],
+    "description": "Console log (detailed)",
+  },
+  "delay": {
+    "scope": "javascript,typescript,javascriptreact,typescriptreact",
+    "prefix": "delay",
+    "body": ["await new Promise((resolve) => setTimeout(resolve, 1000));"],
+    "description": "Add asynchronous delay",
+  },
+}
