@@ -45,3 +45,14 @@
   line-height: 1;
   text-align: center;
 }
+
+.potential-card .priority {
+  position: absolute;
+  top: 1%;
+  left: 3%;
+  color: red;
+  font-weight: 900;
+  font-size: 0.75vw;
+  line-height: 1;
+  text-transform: uppercase;
+}

@@ -7,7 +7,7 @@ import { storage } from "./utils/local-storage-utils";
 import { SaveLoadControls } from "./components/SaveLoadControls";
 
 function App() {
-  // const selectedStore = useSelectedPotentialsStore();
+  // const store = useSelectedPotentialsStore();
 
   useEffect(() => {
     const dataStore = useDataStore.getState(); // Store snapshot
@@ -37,10 +37,7 @@ function App() {
       </div>
 
       {/* <div style={{ marginTop: "20px" }}>
-        <pre>{JSON.stringify(selectedStore.characters)}</pre>
-        <pre>{JSON.stringify(selectedStore.main)}</pre>
-        <pre>{JSON.stringify(selectedStore.sup1)}</pre>
-        <pre>{JSON.stringify(selectedStore.sup2)}</pre>
+        <pre>{JSON.stringify(store, undefined, 2)}</pre>
       </div> */}
     </>
   );

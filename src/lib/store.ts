@@ -67,31 +67,49 @@ export interface CharacterIds {
   sup2: number | null;
 }
 
+export type Priority = "high" | "medium" | "low";
+
+export interface SelectedPotential {
+  priority: Priority;
+}
+
 export interface SelectedPotentialsData {
   characters: CharacterIds;
-  main: number[];
-  sup1: number[];
-  sup2: number[];
+  main: { [key: number]: SelectedPotential | undefined };
+  sup1: { [key: number]: SelectedPotential | undefined };
+  sup2: { [key: number]: SelectedPotential | undefined };
 }
 
 interface SelectedPotentialsStore extends SelectedPotentialsData {
+  currentPriority: Priority;
   setCharacters: (data: CharacterIds) => void;
-  setPotentials: (key: "main" | "sup1" | "sup2", data: number[]) => void;
-  togglePotential: (key: "main" | "sup1" | "sup2", id: number) => void;
+  setPriority: (data: Priority) => void;
+  setPotentials: (key: "main" | "sup1" | "sup2", data: { [key: number]: SelectedPotential | undefined }) => void;
+  togglePotential: (key: "main" | "sup1" | "sup2", potential: SSPotential) => void;
 }
 
 export const useSelectedPotentialsStore = create<SelectedPotentialsStore>((set) => ({
   characters: { main: null, sup1: null, sup2: null },
-  main: [],
-  sup1: [],
-  sup2: [],
+  main: {},
+  sup1: {},
+  sup2: {},
+  currentPriority: "high",
   setCharacters: (data) => set({ characters: data }),
+  setPriority: (data) => set({ currentPriority: data }),
   setPotentials: (key, data) => set({ [key]: data }),
-  togglePotential: (key, id) => {
+  togglePotential: (key, potential) => {
     set((state) => {
-      const exists = state[key].includes(id);
-      if (exists) return { [key]: state[key].filter((i) => i !== id) }; // Remove
-      return { [key]: [...state[key], id] }; // Add
+      const potentials = state[key];
+      const id = potential.id;
+
+      // Remove
+      if (potentials[id] && (potentials[id].priority === state.currentPriority || potential.rarity === 0)) {
+        delete potentials[id];
+        return { [key]: potentials };
+      }
+      // Add
+      potentials[id] = { priority: potential.rarity === 0 ? "high" : state.currentPriority };
+      return { [key]: potentials };
     });
   },
 }));

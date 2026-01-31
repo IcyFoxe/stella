@@ -28,11 +28,11 @@ export const PotentialsContainer = ({ category }: Props) => {
 
   if (potentials) {
     const pinkPotentials = potentials.filter((p) => p.rarity === 0).map((p) => p.id);
-    const pinkPotentialsSelected = selectedPotentials.filter((p) => pinkPotentials.includes(p));
+    const pinkPotentialsSelected = Object.keys(selectedPotentials).filter((p) => pinkPotentials.includes(+p));
 
     if (pinkPotentialsSelected.length >= 2) {
       pinkPotentials.forEach((p) => {
-        if (!pinkPotentialsSelected.includes(p)) disabledPotentials.push(p);
+        if (!pinkPotentialsSelected.includes(`${p}`)) disabledPotentials.push(p);
       });
     }
   }

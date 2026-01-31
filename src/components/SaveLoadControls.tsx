@@ -3,6 +3,7 @@ import { Button, createListCollection, Input, Switch } from "@chakra-ui/react";
 import { SelectBase } from "./base/SelectBase";
 import { storage } from "@/utils/local-storage-utils";
 import { useState } from "react";
+import { PrioritySelector } from "./PrioritySelector";
 
 const saveBuild = (name: string) => {
   const selectedStore = useSelectedPotentialsStore.getState();
@@ -73,7 +74,7 @@ export const SaveLoadControls = () => {
       <Button disabled={!name.trim().length} onClick={() => saveBuild(name)}>
         Save
       </Button>
-
+      <PrioritySelector />
       <Switch.Root checked={obtainedPotentialsStore.active} onCheckedChange={() => obtainedPotentialsStore.setActive(!obtainedPotentialsStore.active)}>
         <Switch.HiddenInput />
         <Switch.Control />

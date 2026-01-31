@@ -1,6 +1,6 @@
 import "./PotentialCard.css";
 import type { SSPotential } from "@/lib/types";
-import { useObtainedPotentialsStore, useSelectedPotentialsStore } from "@/lib/store";
+import { useObtainedPotentialsStore, useSelectedPotentialsStore, type Priority } from "@/lib/store";
 import { Tooltip } from "./ui/tooltip";
 
 interface Props {
@@ -9,38 +9,44 @@ interface Props {
   disabled?: boolean;
 }
 
+const PRIORITY_TO_LABEL: { [key in Priority]: string } = {
+  high: "+++",
+  medium: "++",
+  low: "+",
+};
+
 export const PotentialCard = ({ category, potential, disabled }: Props) => {
   const bgSrc = `potentials/cards/vestige_${potential.rarity}.png`;
   const iconSrc = `https://res.cloudinary.com/dafqr01it/image/upload/v1763084273/ss/potential/${potential.imgId}_A.png`;
   // const subIconUrl = `https://res.cloudinary.com/dafqr01it/image/upload/v1763084273/ss/potential/Potential_${potential.subIcon}_A.png`
 
-  const selectedPotentialsStore = useSelectedPotentialsStore();
+  const selectedData = useSelectedPotentialsStore((s) => s[category][potential.id]);
+  const togglePotential = useSelectedPotentialsStore((s) => s.togglePotential);
   const obtainedPotentialsStore = useObtainedPotentialsStore();
   const obtainedPotentials = useObtainedPotentialsStore((s) => s.potentials);
 
-  const cardClick = (category: "main" | "sup1" | "sup2", id: number) => {
+  const cardClick = (category: "main" | "sup1" | "sup2", potential: SSPotential) => {
     if (disabled) return;
 
     if (obtainedPotentialsStore.active) {
-      obtainedPotentialsStore.togglePotential(id);
+      obtainedPotentialsStore.togglePotential(potential.id);
       return;
     }
 
-    selectedPotentialsStore.togglePotential(category, id);
+    togglePotential(category, potential);
   };
 
   return (
     <Tooltip content={potential.briefDesc} openDelay={1000} closeDelay={0} disabled={!potential.briefDesc}>
-      <div
-        className="potential-card"
-        data-selected={selectedPotentialsStore[category].includes(potential.id)}
-        data-obtained={obtainedPotentials.includes(potential.id)}
-        data-disabled={disabled}
-        onClick={() => cardClick(category, potential.id)}
-      >
+      <div className="potential-card" data-selected={!!selectedData} data-obtained={obtainedPotentials.includes(potential.id)} data-disabled={disabled} onClick={() => cardClick(category, potential)}>
         <img className="background" draggable="false" src={bgSrc} alt="" />
         {potential.imgId && <img className="icon" draggable="false" src={iconSrc} alt={name + " icon"} />}
         <span className="name">{potential.name}</span>
+        {selectedData?.priority && potential.rarity !== 0 && (
+          <span className="priority" data-priority={selectedData.priority}>
+            {PRIORITY_TO_LABEL[selectedData.priority]}
+          </span>
+        )}
       </div>
     </Tooltip>
   );

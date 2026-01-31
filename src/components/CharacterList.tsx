@@ -22,7 +22,7 @@ export const CharacterList = ({ category, onSelect }: Props) => {
     const charactersNew = { ...selectedPotentialsStore.characters };
     charactersNew[category] = character.id;
     selectedPotentialsStore.setCharacters(charactersNew);
-    selectedPotentialsStore.setPotentials(category, []);
+    selectedPotentialsStore.setPotentials(category, {});
 
     onSelect();
   };
