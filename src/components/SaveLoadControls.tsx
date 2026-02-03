@@ -7,6 +7,7 @@ import { PrioritySelector } from "./PrioritySelector";
 
 const saveBuild = (name: string) => {
   const selectedStore = useSelectedPotentialsStore.getState();
+  const { setBuilds } = useStoredBuildsStore.getState();
 
   const data = {
     characters: selectedStore.characters,
@@ -25,6 +26,7 @@ const saveBuild = (name: string) => {
   }
 
   storage.set("builds", builds);
+  setBuilds(builds);
 };
 
 const loadBuild = (name: string) => {
@@ -58,9 +60,11 @@ const loadBuild = (name: string) => {
 };
 
 const deleteBuild = (name: string) => {
+  const { setBuilds } = useStoredBuildsStore.getState();
   const builds = storage.get("builds");
   const buildsNew = builds.filter((b) => b.name !== name);
   storage.set("builds", buildsNew);
+  setBuilds(buildsNew);
 };
 
 export const SaveLoadControls = () => {
