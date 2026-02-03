@@ -57,6 +57,12 @@ const loadBuild = (name: string) => {
   }
 };
 
+const deleteBuild = (name: string) => {
+  const builds = storage.get("builds");
+  const buildsNew = builds.filter((b) => b.name !== name);
+  storage.set("builds", buildsNew);
+};
+
 export const SaveLoadControls = () => {
   const builds = useStoredBuildsStore((s) => s.builds);
   const obtainedPotentialsStore = useObtainedPotentialsStore();
@@ -67,12 +73,20 @@ export const SaveLoadControls = () => {
     items: builds.map((build) => ({ label: build.name, value: build.name })),
   });
 
+  const handleBuildSelect = (name: string) => {
+    setName(name);
+    loadBuild(name);
+  };
+
   return (
     <div className="save-container">
-      <SelectBase collection={buildCollection} onBuildSelect={loadBuild} />
+      <SelectBase collection={buildCollection} onBuildSelect={handleBuildSelect} />
       <Input variant="subtle" placeholder="Build name" value={name} onChange={(e) => setName(e.target.value)} />
       <Button disabled={!name.trim().length} onClick={() => saveBuild(name)}>
         Save
+      </Button>
+      <Button disabled={!name.trim().length} onClick={() => deleteBuild(name)}>
+        Delete
       </Button>
       <PrioritySelector />
       <Switch.Root checked={obtainedPotentialsStore.active} onCheckedChange={() => obtainedPotentialsStore.setActive(!obtainedPotentialsStore.active)}>
