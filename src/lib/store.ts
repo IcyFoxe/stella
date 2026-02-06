@@ -99,7 +99,7 @@ export const useSelectedPotentialsStore = create<SelectedPotentialsStore>((set) 
   setPotentials: (key, data) => set({ [key]: data }),
   togglePotential: (key, potential) => {
     set((state) => {
-      const potentials = state[key];
+      const potentials = { ...state[key] };
       const id = potential.id;
 
       // Remove
