@@ -3,20 +3,29 @@
   width: 100%;
   user-select: none;
   cursor: pointer;
-  transition: 0.2s;
+  transition: 0.15s;
   position: relative;
   border-radius: 4px;
   overflow: hidden;
 }
 
-.potential-card[data-selected="false"] {
-  opacity: 0.4;
+.potential-card::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-color: #00000000;
+  transition: 0.15s;
+  pointer-events: none;
+}
+
+.potential-card[data-selected="false"]::after {
+  background-color: #00000080;
 }
 
 .potential-card[data-obtained="true"] {
   box-shadow:
-    0 0 6px 4px #ffff00dd,
-    inset 0 0 0 2px #ff0;
+    inset 0 0 0 2px #000,
+     0 0 0 0.22vw #ff0;
 }
 
 .potential-card[data-disabled="true"] {
