@@ -29,7 +29,7 @@ export const PotentialCard = ({ category, potential, disabled }: Props) => {
     if (disabled) return;
 
     if (obtainedPotentialsStore.active) {
-      obtainedPotentialsStore.togglePotential(potential.id);
+      obtainedPotentialsStore.togglePotential(potential.id, potential.rarity);
       return;
     }
 
@@ -38,7 +38,7 @@ export const PotentialCard = ({ category, potential, disabled }: Props) => {
 
   return (
     <Tooltip content={potential.briefDesc} openDelay={1000} closeDelay={0} disabled={!potential.briefDesc}>
-      <div className="potential-card" data-selected={!!selectedData} data-obtained={obtainedPotentials.includes(potential.id)} data-disabled={disabled} onClick={() => cardClick(category, potential)}>
+      <div className="potential-card" data-selected={!!selectedData} data-obtained={obtainedPotentials[potential.id] || 0} data-disabled={disabled} onClick={() => cardClick(category, potential)}>
         <img className="background" draggable="false" src={bgSrc} alt="" />
         {potential.imgId && <img className="icon" draggable="false" src={iconSrc} alt={name + " icon"} />}
         <span className="name">{potential.name}</span>

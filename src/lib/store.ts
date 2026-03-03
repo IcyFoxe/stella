@@ -131,20 +131,27 @@ export const useStoredBuildsStore = create<StoredBuildsStore>((set) => ({
 
 interface ObtainedPotentialsStore {
   active: boolean;
-  potentials: number[];
+  potentials: { [key: number]: number | undefined }; // 0 | undefined = unobtained, 1 = in progress, 2 = complete
   setActive: (data: boolean) => void;
-  togglePotential: (id: number) => void;
+  togglePotential: (id: number, rarity: 0 | 1 | 2) => void;
 }
 
 export const useObtainedPotentialsStore = create<ObtainedPotentialsStore>((set) => ({
   active: false,
-  potentials: [],
+  potentials: {},
   setActive: (data) => set({ active: data }),
-  togglePotential: (id) => {
+  togglePotential: (id, rarity) => {
     set((state) => {
-      const exists = state.potentials.includes(id);
-      if (exists) return { potentials: state.potentials.filter((i) => i !== id) }; // Remove
-      return { potentials: [...state.potentials, id] }; // Add
+      const potentials = structuredClone(state.potentials);
+
+      let newStatus = (potentials[id] || 0) + 1;
+
+      if (newStatus > 2) newStatus = 0;
+      if (rarity === 0 && newStatus === 1) newStatus = 2; // Pink potentials are immediately complete
+
+      potentials[id] = newStatus;
+
+      return { potentials };
     });
   },
 }));
