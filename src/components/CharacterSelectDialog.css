@@ -23,6 +23,7 @@
 .potentials-container .character-image {
   position: absolute;
   inset: 0;
+  width: 100%;
 }
 
 .potentials-container .character-name {

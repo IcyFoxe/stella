@@ -21,10 +21,3 @@
   --five-star-gradient: linear-gradient(90deg, #db83ef, #87a5fb, #7ef3f7);
   --four-star-gradient: linear-gradient(90deg, #f5d35c, #f5f375, #f1f5cb);
 }
-
-.main-wrapper {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  width: 100%;
-  gap: 1vw;
-}

@@ -4,6 +4,7 @@ import { SelectBase } from "./base/SelectBase";
 import { storage } from "@/utils/local-storage-utils";
 import { useState } from "react";
 import { PrioritySelector } from "./PrioritySelector";
+import "./SaveLoadControls.css";
 
 const saveBuild = (name: string) => {
   const selectedStore = useSelectedPotentialsStore.getState();
@@ -84,14 +85,22 @@ export const SaveLoadControls = () => {
 
   return (
     <div className="save-container">
-      <SelectBase collection={buildCollection} onBuildSelect={handleBuildSelect} />
-      <Input variant="subtle" placeholder="Build name" value={name} onChange={(e) => setName(e.target.value)} />
-      <Button disabled={!name.trim().length} onClick={() => saveBuild(name)}>
-        Save
-      </Button>
-      <Button disabled={!name.trim().length} onClick={() => deleteBuild(name)}>
-        Delete
-      </Button>
+      <div className="input-container">
+        <SelectBase collection={buildCollection} onBuildSelect={handleBuildSelect} />
+      </div>
+      <div className="input-container">
+        <Input variant="subtle" placeholder="Build name" value={name} onChange={(e) => setName(e.target.value)} />
+      </div>
+
+      <div className="buttons-container">
+        <Button disabled={!name.trim().length} onClick={() => saveBuild(name)}>
+          Save
+        </Button>
+        <Button disabled={!name.trim().length} onClick={() => deleteBuild(name)}>
+          Delete
+        </Button>
+      </div>
+
       <PrioritySelector />
       <Switch.Root checked={obtainedPotentialsStore.active} onCheckedChange={() => obtainedPotentialsStore.setActive(!obtainedPotentialsStore.active)}>
         <Switch.HiddenInput />

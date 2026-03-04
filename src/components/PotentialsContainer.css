@@ -37,3 +37,9 @@
 .potentials-container .section-label {
   font-weight: 700;
 }
+
+@media (max-width: 959px) {
+  .potentials-container .five-columns {
+    gap: 1.2vw;
+  }
+}

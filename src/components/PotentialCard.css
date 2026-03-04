@@ -70,3 +70,13 @@
   line-height: 1;
   text-transform: uppercase;
 }
+
+@media (max-width: 959px) {
+  .potential-card .name {
+    font-size: 2vw;
+  }
+
+  .potential-card .priority {
+    font-size: 2.25vw;
+  }
+}
