@@ -79,4 +79,15 @@
   .potential-card .priority {
     font-size: 2.25vw;
   }
+
+  .potential-card[data-obtained="1"] {
+    box-shadow:
+      inset 0 0 0 2px #000,
+      0 0 0 0.66vw #f80;
+  }
+  .potential-card[data-obtained="2"] {
+    box-shadow:
+      inset 0 0 0 2px #000,
+      0 0 0 0.66vw #ff0;
+  }
 }

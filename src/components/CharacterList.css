@@ -35,3 +35,18 @@
   line-height: 1.5;
   user-select: none;
 }
+
+@media (max-width: 959px) {
+  .character-list {
+    gap: 8px;
+  }
+
+  .character-list .character {
+    padding: 6px 0 12px;
+  }
+
+  .character-list .character-name {
+    bottom: 12px;
+    font-size: 0.8rem;
+  }
+}
