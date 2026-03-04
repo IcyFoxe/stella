@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://icyfoxe.github.io/stella/sitemap.xml
+Sitemap: https://icyfoxe.github.io/stella/sitemap.txt
