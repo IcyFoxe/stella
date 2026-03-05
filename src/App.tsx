@@ -27,7 +27,6 @@ function App() {
 
   return (
     <>
-      <h1 className="main-title">Stella Sora Record Builder</h1>
       <SaveLoadControls />
 
       <div className="main-wrapper">

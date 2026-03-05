@@ -1,4 +1,4 @@
-#root {
+main {
   width: 100%;
   min-width: 400px;
   margin: 0 auto;
@@ -11,6 +11,10 @@
   text-align: center;
 }
 
+.main-description {
+  text-align: center;
+}
+
 .main-wrapper {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -19,7 +23,7 @@
 }
 
 @media (max-width: 959px) {
-  #root {
+  main {
     padding: 3vw;
   }
 
