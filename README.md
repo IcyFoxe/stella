@@ -2,25 +2,19 @@
 
 https://icyfoxe.github.io/stella/
 
-### WIP Disclaimer:
-
-The app is currently in Work in Progress state. Expect bugs and missing features.
-
 ## About
 
-**Stella Sora Record Builder** is an app for quickly creating builds for **Stella Sora**.
+**Stella Sora Record Builder** (Team Builder) is an app for quickly creating builds for **Stella Sora** game.
 
 Features:
 
-- quickly selecting main and support trekkers and their potentials
-- marking potentials as obtained
-- saving builds to browser's Local Storage
-
-Intented to be used along with the game in background as a quick reference.
+- select main and support trekkers, and pick their potentials
+- mark potentials as obtained while doing an ascension
+- save builds to your browser local storage
 
 ---
 
-_Note: This app is mostly a small side project to refresh my skills in React and other relevant technologies._
+_Note: The app is currently in Work in Progress state. Expect bugs and missing features._
 
 ## Credits
 
